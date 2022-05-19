@@ -1,7 +1,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.error import HTTPError
-from collections import Counter
+import re
 def getCountries(url):
     try:
         html = urlopen(url)
@@ -9,16 +9,17 @@ def getCountries(url):
         return None
     try:
         bsObj = BeautifulSoup(html)
+        # countriesFlagsList = bsObj.findAll('img',{'class':'thumbborder'})
+        # for flag in countriesFlagsList:
+        #     print(flag.attrs['src'])
+        # countriesNames = bsObj.findAll('a', {'class': 'image'})
+        # for name in countriesNames:
+        #     print(name.attrs['title'])
         # print(bsObj)
-        # countriesNamesFull = bsObj.findAll('a',{'class': 'image'}).parents.parents.next_siblings.next_sibling.get_text()
-        # for nameFull in countriesNamesFull:
-        #     print(nameFull)
-        countriesFlagsList = bsObj.findAll('img',{'class':'thumbborder'})
-        for flag in countriesFlagsList:
-            print(flag.attrs['src'])
-        countriesNames = bsObj.findAll('a', {'class': 'image'})
-        for name in countriesNames:
-            print(name.attrs['title'])
+        # countriesNamesFull = bsObj.find_all(re.compile("/^<td>[А-Яа-я]/gm"))
+        countriesNamesFull = bsObj.find('table').findAll('tr')[1].findAll('td')[3].get_text()
+        for nameFull in countriesNamesFull:
+            print(countriesNamesFull)
     except AttributeError as e:
         return None
     # return title
