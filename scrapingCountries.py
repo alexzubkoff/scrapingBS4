@@ -24,7 +24,7 @@ def getCountries(country_name):
             full_country_name_list.append(countryNameFull.rstrip())
         country_info_list = []
         for i in range(0,len(countriesNamesFull)-1):
-            country_info_list.append({'country':country_name_list[i],'full_country_name':full_country_name_list[i],'same_letter_count':11,'flag_url':country_flag_list[i]})
+            country_info_list.append({'country':country_name_list[i],'full_country_name':full_country_name_list[i],'same_letter_count':0,'flag_url':country_flag_list[i]})
         same_letter_count_list = []
         letter_count = 0
         for i in range(1040,1072):
@@ -50,9 +50,9 @@ def getCountries(country_name):
     except AttributeError as e:
         return None
 
-country_info = getCountries('Япония')
+country_info = getCountries('Австралия')
 
 if country_info == None:
     print("Country could not be found!")
 else:
-    print(country_info)
+    print("[{country : %s,\nfull_country_name : %s,\nsame_letter_count : %s,\nflag_url : %s}]"%(country_info['country'],country_info['full_country_name'],country_info['same_letter_count'],country_info['flag_url']))
